@@ -35,10 +35,10 @@ app.post('/transfer', (req, res) => {
     res.render('transfer', {message: 'Transfer Completed'});
 });
 
-app.get('/payment', (req, res) => res.render('payment', { account: accounts.credit}));
+app.get('/payment', (req, res) => res.render('payment'));
 app.post('/payment', (req, res) => {
-    accounts.credit.balance -= req.body.amount;
-    accounts.credit.available += parseInt(req.body.amount, 10);
+    accounts.credit.balance = accounts.credit.balance - req.body.amount;
+    accounts.credit.available = parseInt(accounts.credit.balance, 10) + parseInt(req.body.amount, 10);
     wrtieJSON();
     res.render('payment', { message: 'Payment Successful', account: accounts.credit});
 });
